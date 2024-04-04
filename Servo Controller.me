@@ -1,0 +1,45 @@
+#include <Servo.h>
+
+Servo servoMotor; // Defining servo object
+
+void setup() {
+  Serial.begin(9600); // Initializing serial communication
+  servoMotor.attach(9); // Attaching servo to pin 9
+}
+
+void loop() {
+  int angle; // Variable to store the desired angle
+  
+  // Prompt user to enter the angle
+  Serial.println("Enter angle (0-180): ");
+ 
+  while (!Serial.available()) {
+    // Wait for input
+  }
+  
+  // Read the angle from serial input
+  angle = Serial.parseInt();
+  
+  // Validate angle range (0-180)
+  if (angle >= 0 && angle <= 180) {
+    // Move servo to the specified angle
+    servoMotor.write(angle);
+    Serial.print("Servo moved to angle: ");
+    Serial.println(angle);
+  } else {
+    // If angle is out of range, display error message
+    Serial.println("Invalid angle. Please enter angle between 0 and 180.");
+  }
+  
+  delay(500);
+}
+/*Here's how the code works:
+The loop() function continuously checks if there is data available to read from the serial monitor using Serial.available().
+If data is available, it reads the input angle provided by the user using Serial.parseInt().
+It checks if the input angle is within the valid range of 0 to 180 degrees.
+If the angle is valid, it moves the servo motor to the specified angle using servo.write(angle).
+If the angle is invalid, it prints an error message to the serial monitor.
+After processing the input, it clears the serial buffer to ensure no residual data remains.
+For controlling the servo motor, open the serial monitor in the Arduino IDE.
+Take an angle value between 0 and 180 from user as input, and press Enter. 
+The servo motor will move to the specified angle accordingly.*/

@@ -1,0 +1,30 @@
+int soilMoisturePin = A0;  // Soil moisture sensor connected to analog pin A0
+int motorPin = 12;          // DC motor connected to digital pin 12
+int led1Pin = 3;          // LED 1 connected to digital pin 3
+int led2Pin = 2;          // LED 2 connected to digital pin 2
+
+void setup() {
+  pinMode(soilMoisturePin, INPUT); // soil moisture sensor pin as input
+  pinMode(motorPin, OUTPUT);        // motor pin as output
+  pinMode(led1Pin, OUTPUT);         // LED 1 pin as output
+  pinMode(led2Pin, OUTPUT);         // LED 2 pin as output
+}
+
+void loop() {
+  int SoilmoistureLevel = analogRead(soilMoisturePin); // Detecting soil moisture level
+
+  if (SoilmoistureLevel < 500) {  // Adjust limit as required
+    digitalWrite(motorPin, HIGH);  // Turning on motor
+    digitalWrite(led1Pin, HIGH);   // Turning on LED 1
+    digitalWrite(led2Pin, LOW);    // Turning off LED 2
+  } else {
+    digitalWrite(motorPin, LOW);   // Turning off motor
+    digitalWrite(led1Pin, LOW);    // Turning off LED 1
+    digitalWrite(led2Pin, HIGH);   // Turning on LED 2
+  }
+
+  delay(10); // Delay for 10 sec as required by my motor and sensor
+}
+/*The code checks if the moisture level is below a certain threshold (in this case, 500). This threshold value might need adjustment based on your soil and sensor characteristics. You may need to experiment to find the right threshold for your setup.
+If the moisture level is below the threshold (indicating dry soil), the code turns on the DC motor and LED 1, while turning off LED 2. This signifies that the soil needs watering.
+If the moisture level is above the threshold (indicating moist soil), the code turns off the DC motor and LED 1, while turning on LED 2. This indicates that the soil is sufficiently moist and does not need watering.*/
